@@ -1,4 +1,7 @@
-﻿namespace Project_1
+﻿using System;
+using System.Collections.Generic;
+
+namespace Project_1
 {
     public class BinarySearchTree
     {
@@ -78,6 +81,12 @@
             return x;
         }
 
+
+        public void InsertNode(int key)
+        {
+            InsertNode(new Node(key));
+        }
+
         public void InsertNode(Node z)
         {
             var x = _root; // compared to Z
@@ -99,6 +108,12 @@
                 y.Left = z;
             else
                 y.Right = z;
+        }
+
+        public void InsertNodes(List<Node> nodes)
+        {
+            foreach (var node in nodes)
+                InsertNode(node);
         }
 
         public void TransplantNode(Node u, Node v)
@@ -146,6 +161,46 @@
             var node = SearchNode(key);
             if (node != null)
                 DeleteNode(node);
+        }
+
+        public void Print()
+        {
+            Print(_root);
+            Console.WriteLine();
+        }
+
+        public void Print(Node x)
+        {
+            if (x == null) return;
+            Print(x.Left);
+            Console.Write($"{x.Key} ");
+            Print(x.Right);
+        }
+
+        public List<Node> FetchNodes()
+        {
+            return FetchNodes(_root);
+        }
+
+        public List<Node> FetchNodes(Node x)
+        {
+            var list = new List<Node>();
+            if (x == null) return list;
+
+            list.AddRange(FetchNodes(x.Left));
+            list.Add(x);
+            list.AddRange(FetchNodes(x.Right));
+            return list;
+        }
+
+        public static BinarySearchTree MergeTrees(BinarySearchTree a, BinarySearchTree b)
+        {
+            var nodes = a.FetchNodes();
+            nodes.AddRange(b.FetchNodes());
+
+            var c = new BinarySearchTree();
+            c.InsertNodes(nodes);
+            return c;
         }
     }
 }
