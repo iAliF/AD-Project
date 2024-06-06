@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Project_1
 {
@@ -191,6 +192,16 @@ namespace Project_1
             list.Add(x);
             list.AddRange(FetchNodes(x.Right));
             return list;
+        }
+
+        public List<Node> LargestNodes(int n)
+        {
+            var nodes = FetchNodes();
+            if (n >= nodes.Count)
+                return null;
+
+            nodes.Reverse();
+            return nodes.Take(n).ToList();
         }
 
         public static BinarySearchTree MergeTrees(BinarySearchTree a, BinarySearchTree b)
