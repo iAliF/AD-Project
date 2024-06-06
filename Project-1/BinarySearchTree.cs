@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Heap;
 
 namespace Project_1
 {
@@ -202,6 +203,13 @@ namespace Project_1
 
             nodes.Reverse();
             return nodes.Take(n).ToList();
+        }
+
+        public MaxHeap<int> InsertToMaxHeap(int n)
+        {
+            var nums = LargestNodes(n).Select(x => x.Key).ToArray();
+            var heap = MaxHeap<int>.BuildMaxHeap(nums);
+            return heap;
         }
 
         public static BinarySearchTree MergeTrees(BinarySearchTree a, BinarySearchTree b)

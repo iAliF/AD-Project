@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Linq;
 
 namespace Heap
 {
     public class MaxHeap<TType> where TType : IComparable
     {
         public const int DefaultMaxSize = 100;
+        private readonly TType[] _array;
+        private readonly int _maxSize;
 
         private int _heapSize;
-        private readonly int _maxSize;
-        private readonly TType[] _array;
-        
+
         public MaxHeap(TType[] array, int maxSize = DefaultMaxSize)
         {
             _maxSize = maxSize;
@@ -40,10 +39,10 @@ namespace Heap
             }
         }
 
-        public static MaxHeap<T> BuildMaxHeap<T>(T[] array) where T : IComparable
+        public static MaxHeap<TType> BuildMaxHeap(TType[] array)
         {
-            var heap = new MaxHeap<T>(array);
-            for (int i = array.Length / 2; i >= 0; i--)
+            var heap = new MaxHeap<TType>(array);
+            for (var i = array.Length / 2; i >= 0; i--)
                 heap.MaxHeapify(i);
             return heap;
         }
@@ -55,7 +54,7 @@ namespace Heap
 
             return _array[0];
         }
-        
+
         public TType ExtractMaximum()
         {
             var max = Maximum();
@@ -76,7 +75,7 @@ namespace Heap
             {
                 (_array[Parent(index)], _array[index]) = (_array[index], _array[Parent(index)]);
                 index = Parent(index);
-            }            
+            }
         }
 
         public void Insert(TType x)
@@ -95,8 +94,19 @@ namespace Heap
             }
         }
 
-        public int Parent(int i) => (i -1) / 2;
-        public int Left(int i) => 2 * i + 1;
-        public int Right(int i) => 2 * i + 2;
+        public int Parent(int i)
+        {
+            return (i - 1) / 2;
+        }
+
+        public int Left(int i)
+        {
+            return 2 * i + 1;
+        }
+
+        public int Right(int i)
+        {
+            return 2 * i + 2;
+        }
     }
 }
