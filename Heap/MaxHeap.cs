@@ -5,7 +5,7 @@ namespace Heap
     public class MaxHeap<TType> where TType : IComparable
     {
         public const int DefaultMaxSize = 100;
-        private readonly TType[] _array;
+        protected readonly TType[] _array;
         private readonly int _maxSize;
 
         private int _heapSize;
@@ -66,10 +66,10 @@ namespace Heap
 
         public void IncreaseKey(int index, TType key)
         {
-            if (key.CompareTo(_array[index - 1]) < 0)
+            if (key.CompareTo(_array[index]) < 0)
                 throw new Exception("New key is smaller than current key");
 
-            _array[index - 1] = key;
+            _array[index] = key;
 
             while (index >= 0 && _array[Parent(index)].CompareTo(_array[index]) < 0)
             {

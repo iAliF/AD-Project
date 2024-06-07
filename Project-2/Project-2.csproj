@@ -40,8 +40,16 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="CustomMaxHeap.cs"/>
+        <Compile Include="Person.cs"/>
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Heap\Heap.csproj">
+            <Project>{f6b6955a-c355-4b3c-889d-adecad55c9e3}</Project>
+            <Name>Heap</Name>
+        </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
