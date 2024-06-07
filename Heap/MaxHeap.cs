@@ -4,9 +4,9 @@ namespace Heap
 {
     public class MaxHeap<TType> where TType : IComparable
     {
-        public const int DefaultMaxSize = 100;
-        protected readonly TType[] _array;
+        protected const int DefaultMaxSize = 100;
         private readonly int _maxSize;
+        protected readonly TType[] Array;
 
         private int _heapSize;
 
@@ -15,8 +15,8 @@ namespace Heap
             _maxSize = maxSize;
             _heapSize = array.Length;
 
-            _array = new TType[maxSize];
-            array.CopyTo(_array, 0);
+            Array = new TType[maxSize];
+            array.CopyTo(Array, 0);
         }
 
         public void MaxHeapify(int i)
@@ -25,16 +25,16 @@ namespace Heap
             var right = Right(i);
             int largest;
 
-            if (_heapSize > left && _array[left].CompareTo(_array[i]) >= 0)
+            if (_heapSize > left && Array[left].CompareTo(Array[i]) >= 0)
                 largest = left;
             else
                 largest = i;
-            if (_heapSize > right && _array[right].CompareTo(_array[largest]) >= 0)
+            if (_heapSize > right && Array[right].CompareTo(Array[largest]) >= 0)
                 largest = right;
 
             if (largest != i)
             {
-                (_array[largest], _array[i]) = (_array[i], _array[largest]);
+                (Array[largest], Array[i]) = (Array[i], Array[largest]);
                 MaxHeapify(largest);
             }
         }
@@ -52,13 +52,13 @@ namespace Heap
             if (_heapSize < 1)
                 throw new Exception("Heap underflow");
 
-            return _array[0];
+            return Array[0];
         }
 
         public TType ExtractMaximum()
         {
             var max = Maximum();
-            _array[0] = _array[_heapSize - 1];
+            Array[0] = Array[_heapSize - 1];
             _heapSize -= 1;
             MaxHeapify(0);
             return max;
@@ -66,14 +66,14 @@ namespace Heap
 
         public void IncreaseKey(int index, TType key)
         {
-            if (key.CompareTo(_array[index]) < 0)
+            if (key.CompareTo(Array[index]) < 0)
                 throw new Exception("New key is smaller than current key");
 
-            _array[index] = key;
+            Array[index] = key;
 
-            while (index >= 0 && _array[Parent(index)].CompareTo(_array[index]) < 0)
+            while (index >= 0 && Array[Parent(index)].CompareTo(Array[index]) < 0)
             {
-                (_array[Parent(index)], _array[index]) = (_array[index], _array[Parent(index)]);
+                (Array[Parent(index)], Array[index]) = (Array[index], Array[Parent(index)]);
                 index = Parent(index);
             }
         }
@@ -83,34 +83,34 @@ namespace Heap
             if (_heapSize == _maxSize - 1)
                 throw new Exception("Heap overflow");
 
-            _array[_heapSize] = x;
+            Array[_heapSize] = x;
             _heapSize += 1;
 
             var index = _heapSize - 1;
-            while (index >= 0 && _array[Parent(index)].CompareTo(_array[index]) < 0)
+            while (index >= 0 && Array[Parent(index)].CompareTo(Array[index]) < 0)
             {
-                (_array[Parent(index)], _array[index]) = (_array[index], _array[Parent(index)]);
+                (Array[Parent(index)], Array[index]) = (Array[index], Array[Parent(index)]);
                 index = Parent(index);
             }
         }
 
         public void Print()
         {
-            for (int i = 0; i < _heapSize; i++)
-                Console.WriteLine($"{i + 1}. {_array[i]}");
+            for (var i = 0; i < _heapSize; i++)
+                Console.WriteLine($"{i + 1}. {Array[i]}");
         }
-        
-        public int Parent(int i)
+
+        private static int Parent(int i)
         {
             return (i - 1) / 2;
         }
 
-        public int Left(int i)
+        private static int Left(int i)
         {
             return 2 * i + 1;
         }
 
-        public int Right(int i)
+        private static int Right(int i)
         {
             return 2 * i + 2;
         }

@@ -27,16 +27,13 @@ namespace Project_2
 
         public int CompareTo(object other)
         {
-            if (other is Person p)
-            {
-                if (Age != p.Age)
-                    return p.Age.CompareTo(Age);
+            if (!(other is Person p)) return 0;
 
+            return Age != p.Age
+                ? p.Age.CompareTo(Age)
+                :
                 // Higher skill level
-                return SkillLevel.CompareTo(p.SkillLevel);
-            }
-
-            return 0;
+                SkillLevel.CompareTo(p.SkillLevel);
         }
 
         public override string ToString()

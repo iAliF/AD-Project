@@ -1,5 +1,4 @@
-﻿using System;
-using Heap;
+﻿using Heap;
 
 namespace Project_2
 {
@@ -19,13 +18,13 @@ namespace Project_2
 
         public void IncreaseSkillLevel(int index, char skillLevel)
         {
-            var newP = new Person(_array[index].Age, skillLevel);
+            var newP = new Person(Array[index].Age, skillLevel);
             IncreaseKey(index, newP);
         }
 
         public void FindAndIncrease(Person p, char skillLevel)
         {
-            var index = Array.FindIndex(_array, row => row.CompareTo(p) == 0);
+            var index = System.Array.FindIndex(Array, row => row.CompareTo(p) == 0);
             IncreaseSkillLevel(index, skillLevel);
         }
     }

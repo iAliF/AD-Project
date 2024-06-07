@@ -24,7 +24,7 @@ namespace Project_1
             _root = root;
         }
 
-        public Node MinimumNode(Node x)
+        public static Node MinimumNode(Node x)
         {
             while (x.Left != null)
                 x = x.Left;
@@ -32,7 +32,7 @@ namespace Project_1
             return x;
         }
 
-        public Node MaximumNode(Node x)
+        public static Node MaximumNode(Node x)
         {
             while (x.Right != null)
                 x = x.Right;
@@ -71,14 +71,11 @@ namespace Project_1
             return y;
         }
 
-        public Node SearchNode(int key)
+        private Node SearchNode(int key)
         {
             var x = _root; // starts from root
             while (x != null && key != x.Key)
-                if (key < x.Key)
-                    x = x.Left;
-                else
-                    x = x.Right;
+                x = key < x.Key ? x.Left : x.Right;
 
             return x;
         }
@@ -97,10 +94,7 @@ namespace Project_1
             while (x != null) // finding a leaf pos
             {
                 y = x; // parent of x
-                if (z.Key < x.Key)
-                    x = x.Left;
-                else
-                    x = x.Right;
+                x = z.Key < x.Key ? x.Left : x.Right;
             }
 
             z.Parent = y;
@@ -118,7 +112,7 @@ namespace Project_1
                 InsertNode(node);
         }
 
-        public void TransplantNode(Node u, Node v)
+        private void TransplantNode(Node u, Node v)
         {
             if (u.Parent == null) // U is root
                 _root = v;
@@ -171,7 +165,7 @@ namespace Project_1
             Console.WriteLine();
         }
 
-        public void Print(Node x)
+        public static void Print(Node x)
         {
             if (x == null) return;
             Print(x.Left);
@@ -184,7 +178,7 @@ namespace Project_1
             return FetchNodes(_root);
         }
 
-        public List<Node> FetchNodes(Node x)
+        public static List<Node> FetchNodes(Node x)
         {
             var list = new List<Node>();
             if (x == null) return list;

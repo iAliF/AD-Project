@@ -2,17 +2,17 @@
 
 namespace Project_2
 {
-    internal class Program
+    internal static class Program
     {
-        private static CustomMaxHeap _customHeap = new CustomMaxHeap(new Person[]{}, 50);
+        private static readonly CustomMaxHeap CustomHeap = new CustomMaxHeap(new Person[] { }, 50);
 
-        private static readonly Action[] Actions = new Action[]
+        private static readonly Action[] Actions =
         {
             AddPerson,
-            _customHeap.Print,
+            CustomHeap.Print,
             IncreaseSkill,
-            () => Console.WriteLine(_customHeap.Maximum()),
-            () => Console.WriteLine(_customHeap.ExtractMaximum()),
+            () => Console.WriteLine(CustomHeap.Maximum()),
+            () => Console.WriteLine(CustomHeap.ExtractMaximum())
         };
 
         private static void ShowHelp()
@@ -38,14 +38,14 @@ namespace Project_2
             var age = Convert.ToInt32(GetInput("Age"));
             var skill = Convert.ToChar(GetInput("Skill (A-F)"));
             var person = new Person(age, skill);
-            _customHeap.Insert(person);
+            CustomHeap.Insert(person);
         }
 
         private static void IncreaseSkill()
         {
             var index = Convert.ToInt32(GetInput("Index"));
             var skill = Convert.ToChar(GetInput("Skill (A-F)"));
-            _customHeap.IncreaseSkillLevel(index - 1, skill);
+            CustomHeap.IncreaseSkillLevel(index - 1, skill);
         }
 
         private static int GetOption()
@@ -69,12 +69,11 @@ namespace Project_2
             Console.ReadKey();
         }
 
-        public static void Main(string[] args)
+        public static void Main()
         {
             int option;
             ShowHelp();
             while ((option = GetOption()) != 0)
-            {
                 try
                 {
                     var method = Actions[option - 1];
@@ -87,7 +86,6 @@ namespace Project_2
                 {
                     Console.WriteLine($"Error => {e.Message}");
                 }
-            }
 
             GetKey(true);
         }

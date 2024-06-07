@@ -3,9 +3,9 @@ using Heap;
 
 namespace Project_1
 {
-    internal class Program
+    internal static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.WriteLine("Project 1");
 
