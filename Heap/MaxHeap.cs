@@ -94,6 +94,12 @@ namespace Heap
             }
         }
 
+        public void Print()
+        {
+            for (int i = 0; i < _heapSize; i++)
+                Console.WriteLine($"{i + 1}. {_array[i]}");
+        }
+        
         public int Parent(int i)
         {
             return (i - 1) / 2;
